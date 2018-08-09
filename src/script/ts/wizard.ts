@@ -8,7 +8,7 @@ export default class Wizard implements Character {
     health: number;    
     mana: number;
     armor: number;
-    spellbook: Spell[];
+    spellbook: Spell[] = [];
     target: Character;
     inventory: Knapsack;
 

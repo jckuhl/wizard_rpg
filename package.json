@@ -5,7 +5,7 @@
     "main": "app.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "webpack --watch; live-server"
+        "start": "webpack --watch"
     },
     "author": "Jonathan Kuhl",
     "license": "MIT",
@@ -13,7 +13,8 @@
         "ts-loader": "^4.4.2",
         "typescript": "^3.0.1",
         "webpack": "^4.16.5",
-        "webpack-cli": "^3.1.0"
+        "webpack-cli": "^3.1.0",
+        "webpack-dev-server": "^3.1.5"
     },
     "dependencies": {
         "bootstrap": "^4.1.3",
