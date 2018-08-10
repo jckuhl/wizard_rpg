@@ -9,9 +9,26 @@
 </head>
 <body>
     <div class="container" id="app">
-        <div class="row">
-            <div class="col-md-8">
-                <h1>{{ wizard.name }}</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8" v-if="!startGame">
+                <h1 class="text-center">Welcome Fellow Adventurer!</h1>
+                <p class="text-center">To get started, please enter your wizarding name!</p>
+                <form>
+                    <div class="text-center form-group mb-2">
+                        <label for="wizardName" class="sr-only"></label>
+                        <input name="wizardName" id="wizardName" 
+                            class="form-control-lg" 
+                            v-model="name"
+                            @input="validateName"
+                            required>
+                        <button class="btn btn-primary btn-large" 
+                            @click="createWizard"
+                            :disabled="invalidName">
+                            Start Game!
+                        </button>
+                        <p>{{ name }}</p>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
