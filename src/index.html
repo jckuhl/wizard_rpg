@@ -26,9 +26,17 @@
                             :disabled="invalidName">
                             Start Game!
                         </button>
-                        <p>{{ name }}</p>
                     </div>
                 </form>
+            </div>
+            <div class="col-md-12" v-else>
+                <h1 class="text-center">Welcome to the Dark Forest, {{ wizard.name }}</h1>
+
+                <textarea name="" id="" cols="30" rows="10" class="col-md-8" v-model="history" readonly></textarea>
+
+                <p class="text-center">Enter a command:</p>
+                <input type="text" class="form-control" v-model="command">
+                <button class="btn btn-primary" @click="recieveCommand">Commit</button>
             </div>
         </div>
     </div>

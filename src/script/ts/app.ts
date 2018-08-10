@@ -8,6 +8,8 @@ new Vue({
         name: null,
         invalidName: true,
         startGame: false,
+        history: '',
+        command: '',
     },
     methods: {
         validateName() {
@@ -16,10 +18,20 @@ new Vue({
         },
         createWizard(event: Event) {
             event.preventDefault();
-            this.name = this.name.slice(0,1).toUpperCase() + this.name.slice(1);
             this.wizard = new Wizard(this.name);
             this.startGame = true;
-            console.log(this.wizard);
+        },
+        recieveCommand() {
+            let command = this.command.trim().toLowerCase().split(' ');
+            if(command.length != 2) {
+                this.history += 'Invalid command!\n';
+            } else {
+                switch(command[0]) {
+                    case 'cast':
+                        this.history += this.wizard.cast(command[1]);
+                        break;
+                }
+            }
         }
     }
 })
