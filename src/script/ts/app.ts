@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Wizard from './../ts/wizard';
+import { Potions, Potion } from './potion';
 
 new Vue({
     el: '#app',
@@ -11,6 +12,15 @@ new Vue({
         history: '',
         archive: '',
         command: '',
+    },
+    computed: {
+        availManaPots(): number {
+            if(!this.wizard) return 0;
+            return this.wizard.potHolder.potions.filter((potion: Potion)=> potion.name == 'mana').length;
+        },
+        availHealthPots() {
+
+        }
     },
     methods: {
         validateName() {
@@ -38,7 +48,7 @@ new Vue({
                         this.history += this.wizard.cast(command[1]);
                         break;
                     case 'drink':
-                        this.history += this.wizard.potions.drinkPotion(command[1]);
+                        this.history += this.wizard.potHolder.drinkPotion(command[1]);
                         break;
                     case 'clear':
                         this.archive = this.history;

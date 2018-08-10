@@ -16,7 +16,7 @@ export default class Wizard implements Character {
     spellbook: Spell[] = [];
     target: Character;
     inventory: Knapsack;
-    potions: Potions;
+    potHolder: Potions;
 
     constructor(name: string, health=100, mana=100) {
         this.name = name.slice(0,1).toUpperCase() + name.slice(1);
@@ -38,10 +38,10 @@ export default class Wizard implements Character {
             cooldown: 1
         });
 
-        this.potions = new Potions(this);
-        this.potions.addPotion(new ManaPot(this));
-        console.log(this.potions);
-        console.log(this.potions.potions.length);
+        this.potHolder = new Potions(this);
+        this.potHolder.addPotion(new ManaPot(this));
+        console.log(this.potHolder);
+        console.log(this.potHolder.potions.length);
     }
 
     cast(spellname: string): string {

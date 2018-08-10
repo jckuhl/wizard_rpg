@@ -4,6 +4,7 @@ import { Set } from "./set";
 
 export interface Potion extends Item {
     drink: Function;
+    index: number;
 }
 
 export class Potions {
