@@ -2,22 +2,28 @@ import { Character } from "./character";
 import { ElementType } from "./elements";
 import { Spell } from "./spell"
 import { Knapsack } from "./knapsack";
+import { Potions, ManaPot } from "./potion";
 
 export default class Wizard implements Character {
     
     name: string;
-    health: number;    
+    health: number; 
+    maxHealth: number;   
     mana: number;
+    maxMana: number;
     armor: number;
     critical: number;
     spellbook: Spell[] = [];
     target: Character;
     inventory: Knapsack;
+    potions: Potions;
 
     constructor(name: string, health=100, mana=100) {
         this.name = name.slice(0,1).toUpperCase() + name.slice(1);
         this.health = health;
+        this.maxHealth = health;
         this.mana = mana;
+        this.maxMana = mana;
 
         this.critical = 10;
 
@@ -28,8 +34,14 @@ export default class Wizard implements Character {
             element: ElementType.FIRE,
             spell: ()=> `${this.name} casts fireball!\n`,
             manaCost: 30,
-            baseDamage: 30
+            baseDamage: 30,
+            cooldown: 1
         });
+
+        this.potions = new Potions(this);
+        this.potions.addPotion(new ManaPot(this));
+        console.log(this.potions);
+        console.log(this.potions.potions.length);
     }
 
     cast(spellname: string): string {
@@ -55,6 +67,17 @@ export default class Wizard implements Character {
 
     takeDamage(amt: number, spell: Spell): void {
         throw new Error("Method not implemented.");
+    }
+
+    restoreVitality(amt: number, type: string) {
+        switch(type) {
+            case 'mana':
+                if(this.mana + amt <= this.maxMana) this.mana += amt;
+                else this.mana = this.maxMana;
+            case 'health':
+                if(this.health + amt <= this.maxHealth) this.health += amt;
+                else this.health = this.maxHealth;
+        }
     }
 
 }

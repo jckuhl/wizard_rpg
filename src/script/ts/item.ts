@@ -3,4 +3,5 @@ export interface Item {
     value: number;
     desc: string;
     name: string;
+    index: number;
 }

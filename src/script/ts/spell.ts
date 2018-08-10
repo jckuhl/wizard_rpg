@@ -6,4 +6,5 @@ export interface Spell {
     spell: Function;
     manaCost: number;
     baseDamage: number;
+    cooldown: number;
 }
