@@ -17,6 +17,7 @@ export default class Wizard implements Character {
     target: Character;
     inventory: Knapsack;
     potHolder: Potions;
+    turn: boolean;
 
     constructor(name: string, health=100, mana=100) {
         this.name = name.slice(0,1).toUpperCase() + name.slice(1);
@@ -24,6 +25,7 @@ export default class Wizard implements Character {
         this.maxHealth = health;
         this.mana = mana;
         this.maxMana = mana;
+        this.turn = true;
 
         this.critical = 10;
 
@@ -40,8 +42,6 @@ export default class Wizard implements Character {
 
         this.potHolder = new Potions(this);
         this.potHolder.addPotion(new ManaPot(this));
-        console.log(this.potHolder);
-        console.log(this.potHolder.potions.length);
     }
 
     cast(spellname: string): string {
@@ -70,13 +70,24 @@ export default class Wizard implements Character {
     }
 
     restoreVitality(amt: number, type: string) {
-        switch(type) {
-            case 'mana':
+        const potion: any = {
+            mana: (amt: number): void => {
                 if(this.mana + amt <= this.maxMana) this.mana += amt;
                 else this.mana = this.maxMana;
-            case 'health':
+            },
+            health: (amt: number): void => {
                 if(this.health + amt <= this.maxHealth) this.health += amt;
                 else this.health = this.maxHealth;
+            },
+            error: ()=> {
+                throw new Error('Invalid Potion Type');
+            }
+        }
+
+        if(potion[type]) {
+            potion[type](amt);
+        } else {
+            potion['error']();
         }
     }
 

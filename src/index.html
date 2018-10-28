@@ -36,7 +36,7 @@
 
                 <p class="text-center">Enter a command:</p>
                 <input type="text" class="form-control" v-model="command">
-                <button class="btn btn-primary" @click="recieveCommand">Commit</button>
+                <button class="btn btn-primary" @click="recieveCommand" :disabled="!wizard.turn">Commit</button>
                 <p>
                     <button class="btn btn-secondary" 
                         v-for="spell in wizard.spellbook" 
@@ -47,10 +47,10 @@
                     {{ wizard.name }}'s Health: {{ wizard.health }}
                 </p>
                 <p>
-                    {{ wizard.name }}'s Mana: {{ availManaPots }}
+                    {{ wizard.name }}'s Mana: {{ wizard.mana }}
                 </p>
                 <p>
-                    {{ wizard.name }}'s potions: {{ wizard.potHolder.potions.length }}
+                    {{ wizard.name }}'s potions: {{ availManaPots }}
                 </p>
             </div>
         </div>

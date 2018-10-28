@@ -2,7 +2,7 @@
     "name": "wizard",
     "version": "1.0.0",
     "description": "wizard txt based rpg",
-    "main": "app.js",
+    "main": "app.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "webpack --watch"
@@ -10,7 +10,13 @@
     "author": "Jonathan Kuhl",
     "license": "MIT",
     "devDependencies": {
+        "jasmine-core": "^3.2.0",
+        "karma": "^3.0.0",
+        "karma-chrome-launcher": "^2.2.0",
+        "karma-firefox-launcher": "^1.1.0",
+        "karma-jasmine": "^1.1.2",
         "ts-loader": "^4.4.2",
+        "ts-node": "^7.0.1",
         "typescript": "^3.0.1",
         "webpack": "^4.16.5",
         "webpack-cli": "^3.1.0",

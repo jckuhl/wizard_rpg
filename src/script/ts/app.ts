@@ -37,26 +37,25 @@ new Vue({
             this.recieveCommand();
         },
         recieveCommand() {
-            let command = this.command.trim().toLowerCase().split(' ');
-            if(command == '') {
-                this.history += `${this.wizard.name} does nothing\n`;
-            } else if(command.length != 2) {
-                this.history += `${this.wizard.name} does nothing\n`;
-            } else {
-                switch(command[0]) {
-                    case 'cast':
-                        this.history += this.wizard.cast(command[1]);
-                        break;
-                    case 'drink':
-                        this.history += this.wizard.potHolder.drinkPotion(command[1]);
-                        break;
-                    case 'clear':
+            const COMMANDS: any = {
+                cast: (command: string) => this.history += this.wizard.cast(command),
+                drink: (command: string) => this.history += this.wizard.potHolder.drinkPotion(command),
+                clear: () => {
                         this.archive = this.history;
                         this.history = '';
-                    case 'archive':
-                        this.history = this.archive + this.history;
-                    default: 
-                        this.history += `${this.wizard.name} does nothing\n`
+                },
+                archive: () => this.history = this.archive + this.history,
+                default: () => this.history += `${this.wizard.name} does nothing\n`
+            }
+
+            const [ command, action ] = this.command.trim().toLowerCase().split(' ');
+            if(command == '') {
+                this.history += `${this.wizard.name} does nothing\n`;
+            } else {
+                if(COMMANDS[command]) {
+                    COMMANDS[command](action);
+                } else {
+                    COMMANDS['default']();
                 }
             }
         }

@@ -10,7 +10,7 @@ export interface Potion extends Item {
 export class Potions {
     capacity: number;
     potions: Potion[] = [];
-    indexes: Set;
+    indexes: Set<number>;
     user: Wizard;
 
     constructor(user: Wizard, capacity=3) {
