@@ -12,6 +12,16 @@ new Vue({
         history: '',
         archive: '',
         command: '',
+        COMMANDS: {
+            cast: (command: string) => this.history += this.wizard.cast(command),
+            drink: (command: string) => this.history += this.wizard.potHolder.drinkPotion(command),
+            clear: () => {
+                    this.archive = this.history;
+                    this.history = '';
+            },
+            archive: () => this.history = this.archive + this.history,
+            default: () => this.history += `${this.wizard.name} does nothing\n`
+        }
     },
     computed: {
         availManaPots(): number {
@@ -37,25 +47,14 @@ new Vue({
             this.recieveCommand();
         },
         recieveCommand() {
-            const COMMANDS: any = {
-                cast: (command: string) => this.history += this.wizard.cast(command),
-                drink: (command: string) => this.history += this.wizard.potHolder.drinkPotion(command),
-                clear: () => {
-                        this.archive = this.history;
-                        this.history = '';
-                },
-                archive: () => this.history = this.archive + this.history,
-                default: () => this.history += `${this.wizard.name} does nothing\n`
-            }
-
             const [ command, action ] = this.command.trim().toLowerCase().split(' ');
             if(command == '') {
                 this.history += `${this.wizard.name} does nothing\n`;
             } else {
-                if(COMMANDS[command]) {
-                    COMMANDS[command](action);
+                if(this.COMMANDS[command]) {
+                    this.COMMANDS[command](action);
                 } else {
-                    COMMANDS['default']();
+                    this.COMMANDS['default']();
                 }
             }
         }
